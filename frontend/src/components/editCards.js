@@ -1,11 +1,13 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import UpdateCardData from '../services/updateCardData';
 
-const EditCards = ({ isOpen, onClose, onSave, cardData }) => {
+const EditCards = ({ isOpen, onClose, cardData }) => {
     const [question, setQuestion] = useState(cardData.question);
     const [answer, setAnswer] = useState(cardData.answer);
 
-    const handleSave = () => {
-        onSave({ question, answer });
+    const handleSave = async() => {
+        await UpdateCardData("edit", cardData.cardID, question, answer)
         onClose();
     };
 

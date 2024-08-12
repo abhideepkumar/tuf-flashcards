@@ -1,10 +1,13 @@
 import React from 'react';
+import deleteCardData from '../services/deleteCardData';
 
-const DeleteCards = ({ isOpen, onClose, onDelete, cardData }) => {
+const DeleteCards = ({ isOpen, onClose, cardData }) => {
+    console.log(cardData)
     if (!isOpen) return null;
 
-    const handleConfirm = () => {
-        onDelete(cardData.id);
+    const handleConfirm = async() => {
+        console.log(cardData)
+        await deleteCardData("delete", cardData)
         onClose();
     };
 

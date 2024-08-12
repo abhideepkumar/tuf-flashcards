@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react';
 import FlipCard from '../components/cards';
 import { Button } from '../components/ui/button';
-import { fetchData } from '../services/api';
+import { fetchAllCards } from '../services/fetchAllCards';
 
 const FlashCardsPage = () => {
     const [questions, setQuestions] = useState([]);
@@ -9,7 +9,7 @@ const FlashCardsPage = () => {
 
     useEffect(() => {
         const fetchCards = async () => {
-            const data = await fetchData('cards');
+            const data = await fetchAllCards('cards');
             setQuestions(data);
             console.log('Fetched data:', data);
         };

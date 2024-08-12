@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Questions from '../data/questions.json';
 import EditCards from './editCards';
 import DeleteCards from './deleteCards';
+import { fetchAllCards } from '../services/fetchAllCards';
 
 const AllCards = () => {
-    const [questions, setQuestions] = useState(Questions);
-    const [visible, setVisible] = useState(false);
+    const [questions, setQuestions] = useState([]);
+    const [visible, setVisible] = useState(true);
     const [editVisible, setEditVisible] = useState(false);
     const [deleteVisible, setDeleteVisible] = useState(false);
     const [SelectedCard, setSelectedCard] = useState(null);
+
+
+    useEffect(() => {
+        const fetchCards = async () => {
+            const data = await fetchAllCards('cards');
+            setQuestions(data);
+            console.log('Fetched data:', data);
+        };
+        fetchCards();
+    }, []);
 
     const OnEditCards = (cardData) => {
         console.log('Edit mode of ', cardData);
@@ -26,12 +37,6 @@ const AllCards = () => {
         setDeleteVisible(false);
     };
 
-    const handleOnSave = () => {
-        window.location.reload();
-    };
-    const handleOnDelete = () => {
-        window.location.reload();
-    };
     return (
         <div className="w-full p-6 bg-slate-300 rounded-md">
             <p className="flex justify-between items-center text-xl font-bold text-gray-800 mb-4">
@@ -58,7 +63,7 @@ const AllCards = () => {
                             <button
                                 className="text-sm mt-4 mr-4 px-4 py-2 text-white bg-teal-500 rounded-md hover:text-black hover:bg-white transition duration-200"
                                 onClick={() => {
-                                    OnEditCards(question.id);
+                                    OnEditCards(question);
                                 }}
                             >
                                 Edit
@@ -66,7 +71,7 @@ const AllCards = () => {
                             <button
                                 className="text-sm mt-4 px-4 py-2 text-white bg-red-600 rounded-md hover:text-black hover:bg-white transition duration-200"
                                 onClick={() => {
-                                    onDeleteCards(question.id);
+                                    onDeleteCards(question.cardID);
                                 }}
                             >
                                 Delete
@@ -79,7 +84,6 @@ const AllCards = () => {
                 <EditCards
                     isOpen={editVisible}
                     onClose={handleCloseModal}
-                    onSave={handleOnSave}
                     cardData={SelectedCard}
                 />
             )}
@@ -87,7 +91,6 @@ const AllCards = () => {
                 <DeleteCards
                     isOpen={deleteVisible}
                     onClose={handleCloseModal}
-                    onDelete={handleOnDelete}
                     cardData={SelectedCard}
                 />
             )}

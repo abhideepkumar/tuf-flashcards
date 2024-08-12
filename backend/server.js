@@ -1,3 +1,5 @@
+require('dotenv').config(); 
+
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -8,10 +10,10 @@ app.use(cors());
 app.use(bodyParser.json()); 
 
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'flashcards',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
 });
 
 app.get('/', (req, res) => {
@@ -54,19 +56,21 @@ app.delete('/delete', (req, res) => {
         }
     });
 });
+
 app.post('/add', (req, res) => {
     const { question,answer } = req.body; 
     console.log('Data:', question,answer);
-    db.query(' INSERT INTO cards (question, answer) VALUES (?,?)', [question,answer], (err, result) => {
+    db.query('INSERT INTO cards (question, answer) VALUES (?,?)', [question,answer], (err, result) => {
         if (err) {
             console.log(err);
-            res.status(500).send('Database delete error');
+            res.status(500).send('Database insert error');
         } else {
             res.send(result);
         }
     });
 });
 
-app.listen(8080, () => {
-    console.log('Server is running on port 8080');
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });

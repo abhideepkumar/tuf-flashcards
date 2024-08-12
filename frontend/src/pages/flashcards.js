@@ -1,11 +1,20 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import FlipCard from '../components/cards';
-import Questions from '../data/questions.json';
 import { Button } from '../components/ui/button';
+import { fetchData } from '../services/api';
 
 const FlashCardsPage = () => {
-    const [questions, setQuestions] = useState(Questions);
+    const [questions, setQuestions] = useState([]);
     const [questionNumber, setQuestionNumber] = useState(0);
+
+    useEffect(() => {
+        const fetchCards = async () => {
+            const data = await fetchData('cards');
+            setQuestions(data);
+            console.log('Fetched data:', data);
+        };
+        fetchCards();
+    }, []);
 
     const backQuestion = () => {
         if (questionNumber > 0) setQuestionNumber(questionNumber - 1);
@@ -18,10 +27,11 @@ const FlashCardsPage = () => {
 
     return (
         <div>
-            <div>
-                <FlipCard question={questions[questionNumber].question} answer={questions[questionNumber].answer} />
-            </div>
-
+            {questions.length > 0 && (
+                <div>
+                    <FlipCard question={questions[questionNumber].question} answer={questions[questionNumber].answer} />
+                </div>
+            )}
             <div className="flex justify-between p-5">
                 <p></p>
                 <Button text="Back" color="bg-black" onClick={backQuestion} />

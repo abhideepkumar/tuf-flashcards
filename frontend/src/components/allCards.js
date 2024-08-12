@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Questions from '../data/questions.json';
 import EditCards from './editCards';
 import DeleteCards from './deleteCards';
 import { fetchAllCards } from '../services/fetchAllCards';
@@ -38,7 +37,7 @@ const AllCards = () => {
     };
 
     return (
-        <div className="w-full p-6 bg-slate-300 rounded-md">
+        <div className="w-full p-6 bg-gray-300 rounded-md">
             <p className="flex justify-between items-center text-xl font-bold text-gray-800 mb-4">
                 All Cards{' '}
                 <button

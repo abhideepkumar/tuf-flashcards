@@ -2,5 +2,5 @@
 @tailwind components;
 @tailwind utilities;
 body {
-    background-color: #e4e7e5;
+    @apply bg-gray-100
 }

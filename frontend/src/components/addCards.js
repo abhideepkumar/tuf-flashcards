@@ -6,9 +6,7 @@ const AddCards = () => {
         event.preventDefault();
         const question = event.target.question.value;
         const answer = event.target.answer.value;
-        console.log('compponent', question, answer);
         const response = await AddCardData(question, answer);
-        console.log('Response status:', response);
         if (response.affectedRows >0) {
             alert('Card added successfully');
             event.target.reset();
@@ -17,7 +15,7 @@ const AddCards = () => {
         }
     };
     return (
-        <div className="bg-slate-300 p-6 rounded-lg my-5 w-full max-w-sm">
+        <div className="bg-gray-300 p-6 rounded-lg my-5 w-full max-w-sm">
             <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Add a New Card</h2>
             <form onSubmit={callAddCards}>
                 <div className="mb-4">

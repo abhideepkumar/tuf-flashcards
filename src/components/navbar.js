@@ -6,7 +6,7 @@ const Navbar = () => {
         <div className="w-full ">
             <div className="flex justify-between p-3">
                 <LinkButton text="Home" color="bg-black" link="" />
-                <LinkButton text="Attempt Quiz" color="bg-black" link="lessons" />
+                <LinkButton text="Flashcards" color="bg-black" link="flashcards" />
                 <LinkButton text="Admin Portal" color="bg-black" link="admin" />
             </div>
         </div>

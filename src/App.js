@@ -2,16 +2,16 @@ import './App.css';
 import Navbar from './components/navbar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Admin from './pages/admin';
-import Lessons from './pages/lessons';
+import FlashCardsPage from './pages/flashcards';
 
 function App() {
     return (
         <div>
             <Router>
-            <Navbar />
+                <Navbar />
                 <Routes>
                     <Route path="/admin" element={<Admin />} />
-                    <Route path="/lessons" element={<Lessons />} />
+                    <Route path="/flashcards" element={<FlashCardsPage />} />
                 </Routes>
             </Router>
         </div>

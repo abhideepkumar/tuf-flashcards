@@ -1,17 +1,19 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import FlipCard from '../components/cards';
 import Questions from '../data/questions.json';
 import { Button } from '../components/ui/button';
 
-const Lessons = () => {
+const FlashCardsPage = () => {
     const [questions, setQuestions] = useState(Questions);
     const [questionNumber, setQuestionNumber] = useState(0);
 
     const backQuestion = () => {
-        setQuestionNumber(questionNumber - 1);
+        if (questionNumber > 0) setQuestionNumber(questionNumber - 1);
+        else alert('This is the first question');
     };
     const nextQuestion = () => {
-        setQuestionNumber(questionNumber + 1);
+        if (questionNumber < questions.length - 1) setQuestionNumber(questionNumber + 1);
+        else alert('This is the last question');
     };
 
     return (
@@ -30,4 +32,4 @@ const Lessons = () => {
     );
 };
 
-export default Lessons;
+export default FlashCardsPage;
